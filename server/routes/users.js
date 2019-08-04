@@ -4,7 +4,7 @@ const { hash, compare } = require('bcrypt');
 const path = require('path');
 
 const User = require('../models/user');
-const UPLOAD_CONFIG = require('../utils/multer-config');
+const { UPLOAD_IMAGE_USER } = require('../utils/upload-image');
 const { REMOVE_IMAGE } = require('../utils/remove-img');
 
 //Get list user
@@ -24,6 +24,9 @@ router.get('/', async ( req, res) => {
 router.get('/:userID', async (req, res) => {
   try {
     const { userID } = req.params;
+    let isExist = await User.findById(userID);
+    if(!isExist) res.json({ error: true, message: 'USER_NOT_EXIST'});
+
     let infoUser = await User.findById(userID);
     if(!infoUser) res.json({ error: true, message: 'CANNOT_GET_INFO_USER'});
 
@@ -34,7 +37,7 @@ router.get('/:userID', async (req, res) => {
 })
 
 //Register a user
-router.post('/', UPLOAD_CONFIG.single('image'), async (req, res) => {
+router.post('/', UPLOAD_IMAGE_USER.single('image'), async (req, res) => {
   try {
     const { fullname, email, password, age } = req.body;
 
@@ -62,21 +65,24 @@ router.post('/', UPLOAD_CONFIG.single('image'), async (req, res) => {
 });
 
 //Update info user
-router.put('/:userID', UPLOAD_CONFIG.single('image'), async (req, res) => {
+router.put('/:userID', UPLOAD_IMAGE_USER.single('image'), async (req, res) => {
   try {
     const { userID } = req.params;
+    let isExist = await User.findById(userID);
+    if(!isExist) res.json({ error: true, message: 'USER_NOT_EXIST'});
+
     const { fullname, email, password, age} = req.body;
 
     let passHash = await hash(password, 8);
     if(!passHash) res.json({ error: true, message: 'CANNOT_HASH_PASSWORD'});
 
-    const objUpdate = { fullname, email, password: passHash, age};
+    const objUserUpdate = { fullname, email, password: passHash, age};
     if(req.file){
       const { originalname } = req.file;
-      objUpdate.image = originalname;
+      objUserUpdate.image = originalname;
     }
 
-    let infoUserUpdated = await User.findByIdAndUpdate(userID, objUpdate, { new: true});
+    let infoUserUpdated = await User.findByIdAndUpdate(userID, objUserUpdate, { new: true});
     if(!infoUserUpdated) res.json({error: true, message: 'CANNOT_UPDATE_USER'});
 
     res.json({ error: false, data: infoUserUpdated });
@@ -89,11 +95,14 @@ router.put('/:userID', UPLOAD_CONFIG.single('image'), async (req, res) => {
 router.delete('/:userID', async (req, res) => {
   try {
     const { userID } = req.params;
+    let isExist = await User.findById(userID);
+    if(!isExist) res.json({ error: true, message: 'USER_NOT_EXIST'});
+    
     let infoUserHasDeleted = await User.findByIdAndRemove(userID);
     if(!infoUserHasDeleted) res.json({ error: true, message: 'CANNOT_REMOVE_USER'});
 
-    //Remove image by user
-    let imagePathRemove = path.resolve(__dirname, `../public/images/${infoUserHasDeleted.image}`);
+    //Remove image for user
+    let imagePathRemove = path.resolve(__dirname, `../public/images/users/${infoUserHasDeleted.image}`);
     let result = await REMOVE_IMAGE(imagePathRemove);
 
     res.json({ error: false, data: infoUserHasDeleted});
@@ -103,5 +112,4 @@ router.delete('/:userID', async (req, res) => {
 })
 
 //Export router
-
 exports.USER_ROUTER = router;

@@ -7,6 +7,7 @@ const Category = require('../models/category');
 router.get('/', async (req, res) => {
   try {
     let categories = await Category.find({})
+      .populate('products')
       .sort({ createAt: -1});
     if(!categories) res.json({ error: true, message: 'CANNOT_GET_CATEGORIES'});
 

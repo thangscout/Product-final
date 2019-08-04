@@ -9,6 +9,7 @@ const port = process.env.PORT || 5000;
 const uri = process.env.ATLAS_URI;
 
 const { USER_ROUTER } = require('./routes/users');
+const { PRODUCT_ROUTER } = require('./routes/products');
 const { CATEGORIES_ROUTER } = require('./routes/categories');
 
 app.use(cors());
@@ -19,6 +20,7 @@ app.use(express.static('./public'));
 //Middleware router
 app.use('/users', USER_ROUTER);
 app.use('/categories', CATEGORIES_ROUTER);
+app.use('/products', PRODUCT_ROUTER);
 
 app.get('/', (req, res)=>{
   res.send('c');
