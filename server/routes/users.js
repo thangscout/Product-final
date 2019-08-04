@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const { hash, compare } = require('bcrypt');
+const path = require('path');
 
 const User = require('../models/user');
 const UPLOAD_CONFIG = require('../utils/multer-config');
+const { REMOVE_IMAGE } = require('../utils/remove-img');
 
 //Get list user
 router.get('/', async ( req, res) => {
@@ -89,6 +91,10 @@ router.delete('/:userID', async (req, res) => {
     const { userID } = req.params;
     let infoUserHasDeleted = await User.findByIdAndRemove(userID);
     if(!infoUserHasDeleted) res.json({ error: true, message: 'CANNOT_REMOVE_USER'});
+
+    //Remove image by user
+    let imagePathRemove = path.resolve(__dirname, `../public/images/${infoUserHasDeleted.image}`);
+    let result = await REMOVE_IMAGE(imagePathRemove);
 
     res.json({ error: false, data: infoUserHasDeleted});
   } catch (error) {
