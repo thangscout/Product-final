@@ -33,7 +33,7 @@ app.get('/', (req, res)=>{
 //Login
 app.post('/login', async (req, res) => {
   try {
-    const { email, password } = req.params;
+    const { email, password } = req.body;
     let infoUser = await User.findOne({email});
     if(!infoUser) res.json({ error: true, message: 'EMAIL_NOT_EXIST'});
 
