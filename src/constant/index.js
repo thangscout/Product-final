@@ -1,0 +1,1 @@
+export const URI_FETCH = 'http://localhost:5000'
