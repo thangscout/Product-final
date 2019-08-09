@@ -6,6 +6,9 @@ import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import STORE from './stores';
 
+import { refreshApp } from './actions/user';
+
+refreshApp();
 ReactDOM.render(
   <Provider store={STORE}>
     <App />

@@ -1,8 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
-import { PublicRoute } from './helpers';
+import { PublicRoute, PrivateRoute } from './helpers';
 import { Home, Dashboard } from './components';
 import Login from './components/Login';
+import Register from './components/user/Register';
+import Users from './components/Users';
+import Products from './components/Products';
+import Categories from './components/categories/Categories';
+import CategoriesCreate from './components/categories/Categories-create'
+
 
 function App() {
   return (
@@ -26,6 +32,12 @@ function App() {
         </nav>
         <PublicRoute exact path='/' component={Home}/>
         <PublicRoute path='/login' component={Login}/>
+        <PublicRoute path='/users' component={Register}/>
+        <PrivateRoute path='/dashboard' component={Dashboard}/>
+        <PrivateRoute path='/dashboard/users' component={Users}/>
+        <PrivateRoute path='/dashboard/products' component={Products}/>
+        <PrivateRoute exact path='/dashboard/categories' component={Categories}/>
+        <PrivateRoute path='/dashboard/categories/create' component={CategoriesCreate}/>
       </Router>
     </>
   );

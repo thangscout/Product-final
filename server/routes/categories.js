@@ -24,7 +24,9 @@ router.get('/:categoryID', async (req, res) => {
     let infoCategory = await Category.findById(categoryID);
     if(!infoCategory) res.json({ error: true, message: 'CANNOT_GET_INFO_CATEGORY'});
 
-    res.json({ error: false, data: infoCategory})
+    setTimeout(()=> {
+      res.json({ error: false, data: infoCategory});
+    }, 1500);
   } catch (error) {
     res.json({ error: true, message: error.message});
   }
@@ -41,7 +43,9 @@ router.post('/', async (req, res) => {
     let infoCategoryInserted = await infoCategory.save();
     if(!infoCategoryInserted) res.json({ error: true, message: 'CANNOT_INSERT_CATEGORY'});
 
-    res.json({ error: false, data: infoCategoryInserted});
+    setTimeout(()=> {
+      res.json({ error: false, data: infoCategoryInserted});
+    }, 1500);
   } catch (error) {
     res.json({ error: true, message: error.message});
   }
@@ -58,7 +62,9 @@ router.put('/:categoryID', async (req, res) => {
     }, { new: true});
     if(!infoCategory) res.json({ error: true, message: 'CANNOT_UPDATE_CATEGORY'});
 
-    res.json({ error: false, data: infoCategory });    
+    setTimeout(()=> {
+      res.json({ error: false, data: infoCategory }); 
+    }, 1500);
   } catch (error) {
     res.json({ error: true, message: error.message});
   }
@@ -71,7 +77,9 @@ router.delete('/:categoryID', async (req, res) => {
     let infoCategoryHasDeleted = await Category.findByIdAndRemove(categoryID);
     if(!infoCategoryHasDeleted) res.json({ error: true, message: 'CANNOT_REMOVE_CATEGORY'});
 
-    res.json({ error: false, data: infoCategoryHasDeleted });
+    setTimeout(()=> {
+      res.json({ error: false, data: infoCategoryHasDeleted });
+    }, 1500);
   } catch (error) {
     res.json({ error: true, message: error.message});
   }

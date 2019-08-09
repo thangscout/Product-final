@@ -14,7 +14,9 @@ router.get('/', async ( req, res) => {
       .sort({ createAt: -1});
     if(!users) res.json({ error: true, message: 'CANNOT_GET_USERS'});
 
-    res.json({error: false, users});
+    setTimeout(()=> {
+      res.json({error: false, users});
+    }, 1500);
   } catch (error) {
     res.json({ error: true, message: error.message});
   }
@@ -30,7 +32,9 @@ router.get('/:userID', async (req, res) => {
     let infoUser = await User.findById(userID);
     if(!infoUser) res.json({ error: true, message: 'CANNOT_GET_INFO_USER'});
 
-    res.json({ error: false, data: infoUser});
+    setTimeout(()=> {
+      res.json({ error: false, data: infoUser});
+    }, 1500);
   } catch (error) {
     res.json({ error: true, message: error.message});
   }
@@ -39,10 +43,10 @@ router.get('/:userID', async (req, res) => {
 //Register a user
 router.post('/', UPLOAD_IMAGE_USER.single('image'), async (req, res) => {
   try {
-    const { fullname, email, password, age } = req.body;
+    const { fullname, email, password, age } = JSON.parse(req.body.data);
 
     let isExist = await User.findOne({email})
-    if(isExist) res.json({ error: true, message: 'USER_IS_EXIST'});
+    if(isExist) res.json({ error: true, message: 'EMAIL_IS_EXIST'});
 
     let passHash = await hash(password, 8);
     if(!passHash) res.json({ error: true, message: 'CANNOT_HASH_PASSWORD'});
@@ -58,7 +62,8 @@ router.post('/', UPLOAD_IMAGE_USER.single('image'), async (req, res) => {
 
     if(!infoUserInserted) res.json({ error: true, message: 'CANNOT_INSERT_USER'});
 
-    res.json({ error: false, data: infoUserInserted });
+  
+    return res.json({ error: false, data: infoUserInserted });
   } catch (error) {
     res.json({ error: true, message: error.message});
   }
@@ -85,7 +90,9 @@ router.put('/:userID', UPLOAD_IMAGE_USER.single('image'), async (req, res) => {
     let infoUserUpdated = await User.findByIdAndUpdate(userID, objUserUpdate, { new: true});
     if(!infoUserUpdated) res.json({error: true, message: 'CANNOT_UPDATE_USER'});
 
-    res.json({ error: false, data: infoUserUpdated });
+    setTimeout(()=> {
+      res.json({ error: false, data: infoUserUpdated });
+    }, 1500);
   } catch (error) {
     res.json({ error: true, message: error.message});
   }
@@ -105,7 +112,9 @@ router.delete('/:userID', async (req, res) => {
     let imagePathRemove = path.resolve(__dirname, `../public/images/users/${infoUserHasDeleted.image}`);
     let result = await REMOVE_IMAGE(imagePathRemove);
 
-    res.json({ error: false, data: infoUserHasDeleted});
+    setTimeout(()=> {
+      res.json({ error: false, data: infoUserHasDeleted});
+    }, 1500);
   } catch (error) {
     res.json({ error: true, message: error.message});
   }

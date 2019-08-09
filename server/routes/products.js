@@ -18,8 +18,10 @@ router.get('/', async (req, res) => {
       })
       .sort({ createAt: -1});
     if(!products) res.json({ error: true, message: 'CANNOT_GET_PRODUCTS'});
-
-    res.json({error: false, data: products});
+    
+    setTimeout(()=> {
+      res.json({error: false, data: products});
+    }, 1500);
   } catch (error) {
     res.json({ error: true, message: error.message});
   }
@@ -35,7 +37,9 @@ router.get('/:productID', async (req, res) => {
     let infoProduct = await Product.findById(productID);
     if(!infoProduct) res.json({ error: true, message: 'CANNOT_GET_INFO_PRODUCT'});
 
-    res.json({ error: false, data: infoProduct});
+    setTimeout(()=> {
+      res.json({ error: false, data: infoProduct});
+    }, 1500);
   } catch (error) {
     res.json({ error: true, message: error.message});
   }
@@ -63,8 +67,10 @@ router.post('/', UPLOAD_IMAGE_PRODUCT.single('image'), async (req, res) => {
       $addToSet: {products: productID}
     }, { new: true});
     if(!infoCategoryAfterUpdate) res.json({ error: true, message: 'CANNOT_INSERT_CATEGORY_FOR_PRODUCT'});
-    
-    res.json({ error: false, newProduct: infoProductInserted, newCategory: infoCategoryAfterUpdate});
+
+    setTimeout(()=> {
+      res.json({ error: false, newProduct: infoProductInserted, newCategory: infoCategoryAfterUpdate});
+    }, 1500);
   } catch (error) {
     res.json({ error: true, message: error.message});
   }
@@ -99,7 +105,9 @@ router.put('/:productID', UPLOAD_IMAGE_PRODUCT.single('image'), async (req, res)
     }, { new: true});
     if(!infoCategoryAfterUpdate) res.json({ error: true, message: 'CANNOT_UPDATE_CATEGORY_FOR_PRODUCT'});
     
-    res.json({ error: false, productUpdated: infoProductUpdated, categoryUpdated: infoCategoryAfterUpdate});
+    setTimeout(()=> {
+      res.json({ error: false, productUpdated: infoProductUpdated, categoryUpdated: infoCategoryAfterUpdate});
+    }, 1500);
   } catch (error) {
     res.json({ error: true, message: error.message});
   }
@@ -123,7 +131,9 @@ router.delete('/:productID', async (req, res) => {
     let imagePathRemove = path.resolve(__dirname, `../public/images/products/${infoProductHasDeleted.image}`);
     let result = await REMOVE_IMAGE(imagePathRemove);
 
-    res.json({ error: false, data: infoProductHasDeleted});
+    setTimeout(()=> {
+      res.json({ error: false, data: infoProductHasDeleted});
+    }, 1500);
   } catch (error) {
     res.json({ error: true, message: error.message});
   }

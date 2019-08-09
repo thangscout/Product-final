@@ -7,7 +7,7 @@ const { compare } = require('bcrypt');
 
 require('dotenv').config();
 const port = process.env.PORT || 5000;
-const uri = process.env.ATLAS_URI;
+const uri = 'mongodb://localhost/project_0106';
 
 const User = require('./models/user');
 const { signPromise, verifyPromise } = require('./utils/jwt')
@@ -16,7 +16,7 @@ const { USER_ROUTER } = require('./routes/users');
 const { PRODUCT_ROUTER } = require('./routes/products');
 const { CATEGORIES_ROUTER } = require('./routes/categories');
 
-app.use(cors());
+app.use(cors({}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({}));
 app.use(express.static('./public'));
