@@ -2,12 +2,16 @@ const express = require('express');
 const router = express.Router();
 
 const Category = require('../models/category');
+const Product = require('../models/product');
 
 //Get list category
 router.get('/', async (req, res) => {
   try {
     let categories = await Category.find({})
-      .populate('products')
+      .populate({
+        path:'products',
+        select:'title'
+      })
       .sort({ createAt: -1});
     if(!categories) res.json({ error: true, message: 'CANNOT_GET_CATEGORIES'});
 
@@ -24,9 +28,7 @@ router.get('/:categoryID', async (req, res) => {
     let infoCategory = await Category.findById(categoryID);
     if(!infoCategory) res.json({ error: true, message: 'CANNOT_GET_INFO_CATEGORY'});
 
-    setTimeout(()=> {
-      res.json({ error: false, data: infoCategory});
-    }, 1500);
+    res.json({ error: false, data: infoCategory});
   } catch (error) {
     res.json({ error: true, message: error.message});
   }

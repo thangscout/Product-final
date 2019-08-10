@@ -5,7 +5,7 @@ import { Home, Dashboard } from './components';
 import Login from './components/Login';
 import Register from './components/user/Register';
 import Users from './components/Users';
-import Products from './components/Products';
+import Products from './components/products/Products';
 import Categories from './components/categories/Categories';
 import CategoriesCreate from './components/categories/Categories-create'
 

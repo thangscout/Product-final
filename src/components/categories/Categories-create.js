@@ -1,11 +1,12 @@
 import React, { Fragment, Component } from 'react';
-import { addCategory } from '../../actions/categories';
+import { addCategory, updateInfoCategory } from '../../actions/categories';
 import { connect } from 'react-redux';
 
 class CategoriesCreate extends Component {
   state = {
     title: '',
-    description: ''
+    description: '',
+    isUpdate: false
   }
 
   _handleChangeValue = e => {
@@ -16,15 +17,38 @@ class CategoriesCreate extends Component {
     console.log({ e: e.target.value})
   }
   
-  _handleSubmit = e => {
+  _handleSubmitAdd = e => {
     e.preventDefault();
     
     const { title, description } = this.state;
     const { history } = this.props;
+    console.log({ history})
     addCategory( title, description, history);
   }
+
+  _handleSubmitUpdate = e => {
+    e.preventDefault();
+    
+    const { history } = this.props;
+    const {title, description, categoryID} = this.state;
+    updateInfoCategory( categoryID, title, description, history );
+  }
+
+  componentDidUpdate(prevProps, prevState){
+    const { categoryID } = prevState;
+    const { infoCategoryPrepareUpdate} = this.props.categories;
+
+    if(infoCategoryPrepareUpdate && categoryID !== infoCategoryPrepareUpdate._id){
+      const { title, description, _id} = infoCategoryPrepareUpdate;
+      this.setState({
+        title, description, isUpdate: true, categoryID: _id
+      })
+    }
+  }
+
   render(){
-    const { categories: { requestingAddCategory }} = this.props;
+    const { categories: { requestingAddCategory, updatingInfo }} = this.props;
+    const { title, description, isUpdate} = this.state;
     return(
       <Fragment>
         <div className="container-fluid">
@@ -40,6 +64,7 @@ class CategoriesCreate extends Component {
                     </span>
                   </label>
                   <input className="form-control" name="title" type="text"
+                    value={title}
                     onChange={e => this._handleChangeValue(e)} 
                   />
                 </div>
@@ -50,18 +75,29 @@ class CategoriesCreate extends Component {
                       *
                     </span>
                   </label>
-                  <textarea className="form-control" cols={40} name="description" rows={10} defaultValue={""}
+                  <textarea className="form-control" cols={40} name="description" rows={10}
+                    value={description || ''}
                     onChange={e => this._handleChangeValue(e)} 
                   />
                 </div>
                 <div className="form-group">
                   <div>
-                    <button className="btn btn-primary " name="submit" type="submit"
-                      onClick={ e => this._handleSubmit(e)}
-                    >
-                      Add
-                    {requestingAddCategory ? <span className="spinner-border spinner-border-sm ml-2" role="status" aria-hidden="true"></span> : ''}
-                    </button>
+                    {
+                      !isUpdate ?
+                      <button className="btn btn-primary " name="submit" type="submit"
+                          onClick={ e => this._handleSubmitAdd(e)}
+                        >
+                          Add
+                        {requestingAddCategory ? <span className="spinner-border spinner-border-sm ml-2" role="status" aria-hidden="true"></span> : ''}
+                      </button> :
+                        <button className="btn btn-primary " name="submit" type="submit"
+                          onClick={ e => this._handleSubmitUpdate(e)}
+                        >
+                          Update
+                        {updatingInfo ? <span className="spinner-border spinner-border-sm ml-2" role="status" aria-hidden="true"></span> : ''}
+                      </button>
+                    }
+                    
                   </div>
                 </div>
               </form>

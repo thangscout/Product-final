@@ -66,10 +66,14 @@ router.post('/', UPLOAD_IMAGE_PRODUCT.single('image'), async (req, res) => {
     let infoCategoryAfterUpdate = await Category.findByIdAndUpdate(categoryID, {
       $addToSet: {products: productID}
     }, { new: true});
+
     if(!infoCategoryAfterUpdate) res.json({ error: true, message: 'CANNOT_INSERT_CATEGORY_FOR_PRODUCT'});
 
+    let categories = await Category.find({})
+    if(!categories) res.json({ error: true, message: 'CANNOT_GET_CATEGORIES'})
+
     setTimeout(()=> {
-      res.json({ error: false, newProduct: infoProductInserted, newCategory: infoCategoryAfterUpdate});
+      res.json({ error: false, newProduct: infoProductInserted, newCategory: infoCategoryAfterUpdate, categories});
     }, 1500);
   } catch (error) {
     res.json({ error: true, message: error.message});
