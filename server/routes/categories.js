@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
       .sort({ createAt: -1});
     if(!categories) res.json({ error: true, message: 'CANNOT_GET_CATEGORIES'});
 
-    res.json({ error: false, categories });
+    res.json({ error: false, data: categories });
   } catch (error) {
     res.json({ error: true, message: error.message});
   }

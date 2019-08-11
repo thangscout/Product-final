@@ -7,7 +7,8 @@ import Register from './components/user/Register';
 import Users from './components/Users';
 import Products from './components/products/Products';
 import Categories from './components/categories/Categories';
-import CategoriesCreate from './components/categories/Categories-create'
+import CategoriesCreate from './components/categories/Categories-create';
+import ProductsCreate from './components/products/Products-create';
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
         <PrivateRoute path='/dashboard/products' component={Products}/>
         <PrivateRoute exact path='/dashboard/categories' component={Categories}/>
         <PrivateRoute path='/dashboard/categories/create' component={CategoriesCreate}/>
+        <PrivateRoute path='/dashboard/products/create' component={ProductsCreate}/>
       </Router>
     </>
   );

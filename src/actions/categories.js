@@ -12,7 +12,7 @@ export const getCategories = () => {
       let respt = resp.data;
       STORE.dispatch({
         type: 'GET_CATEGORIES',
-        payload: respt.categories
+        payload: respt.data
       })
     })
     .catch(err => console.log({ err}));

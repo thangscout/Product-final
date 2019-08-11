@@ -21,16 +21,16 @@ class CategoriesDetail extends Component {
   }
 
   render(){
-    const { category, index, requestingRemoveCategory, requestingGetInfoCategory} = this.props;
+    const { category, index, requestingRemoveCategory} = this.props;
+    let products = category.products.map(item => item.title);
+    // console.log(av.join())
     return(
       <Fragment>
         <tr key={index}>
           <th scope="row">{index + 1}</th>    
           <td>{category.title}</td>
           <td>{category.description}</td>
-          <td>{category.products.map(item => {
-            return item.title + ' '
-          })}</td>
+          <td>{products.join(', ')}</td>
           <td>
             <button type="button" className="btn btn-danger"
               onClick={ e =>this._handleRemove(e)}

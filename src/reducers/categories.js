@@ -7,7 +7,7 @@ const initState = {
   updatingInfo: false
 }
 
-export default function productReducer( state = initState, action ){
+export default function categoryReducer( state = initState, action ){
   switch(action.type){
     case 'GET_CATEGORIES':
       return {

@@ -12,16 +12,13 @@ const { REMOVE_IMAGE } = require('../utils/remove-img');
 router.get('/', async (req, res) => {
   try {
     let products = await Product.find({})
-      .populate({
-        path:'category',
-        select:'title'
-      })
       .sort({ createAt: -1});
     if(!products) res.json({ error: true, message: 'CANNOT_GET_PRODUCTS'});
+
+    let categories = await Category.find({});
+    if(!categories) res.json({ error: true, message: 'CANNOT_GET_CATEGORIES'})
     
-    setTimeout(()=> {
-      res.json({error: false, data: products});
-    }, 1500);
+    res.json({error: false, data:{products, categories} });
   } catch (error) {
     res.json({ error: true, message: error.message});
   }
@@ -52,7 +49,7 @@ router.post('/', UPLOAD_IMAGE_PRODUCT.single('image'), async (req, res) => {
     let isExist = await Product.findOne({title});
     if(isExist) res.json({ error: true, message: 'PRODUCT_IS_EXIST'});
 
-    const objProduct = { title, description, price, category: categoryID };
+    const objProduct = { title, description, price, categoryID };
     if(req.file){
       let { originalname } = req.file;
       objProduct.image = originalname;
@@ -95,7 +92,7 @@ router.put('/:productID', UPLOAD_IMAGE_PRODUCT.single('image'), async (req, res)
       }, { new: true});
     }
 
-    const objProductUpdate = { title, description, price, category: categoryID};
+    const objProductUpdate = { title, description, price, categoryID};
     if(req.file){
       let { originalname } = req.file;
       objProductUpdate.image = originalname;
