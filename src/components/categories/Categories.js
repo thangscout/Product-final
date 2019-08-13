@@ -19,7 +19,7 @@ class Categories extends Component {
 
   render(){
     const { categories: { listCategories, requestingRemoveCategory, requestingGetInfoCategory }} = this.props;
-    // console.log({ _: listCategories})
+    console.log({ _: listCategories})
     return(
       <Fragment>
         <div className="container-fluid">

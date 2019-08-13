@@ -10,7 +10,6 @@ import Categories from './components/categories/Categories';
 import CategoriesCreate from './components/categories/Categories-create';
 import ProductsCreate from './components/products/Products-create';
 
-
 function App() {
   return (
     <>
@@ -36,7 +35,7 @@ function App() {
         <PublicRoute path='/users' component={Register}/>
         <PrivateRoute path='/dashboard' component={Dashboard}/>
         <PrivateRoute path='/dashboard/users' component={Users}/>
-        <PrivateRoute path='/dashboard/products' component={Products}/>
+        <PrivateRoute exact path='/dashboard/products' component={Products}/>
         <PrivateRoute exact path='/dashboard/categories' component={Categories}/>
         <PrivateRoute path='/dashboard/categories/create' component={CategoriesCreate}/>
         <PrivateRoute path='/dashboard/products/create' component={ProductsCreate}/>

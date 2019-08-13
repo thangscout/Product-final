@@ -31,12 +31,9 @@ router.get('/:productID', async (req, res) => {
     let isExist = await Product.findById(productID);
     if(!isExist) res.json({ error: true, message: 'PRODUCT_NOT_EXIST'});
 
-    let infoProduct = await Product.findById(productID);
-    if(!infoProduct) res.json({ error: true, message: 'CANNOT_GET_INFO_PRODUCT'});
-
-    setTimeout(()=> {
-      res.json({ error: false, data: infoProduct});
-    }, 1500);
+    // setTimeout(()=> {
+      res.json({ error: false, data: isExist});
+    // }, 1500);
   } catch (error) {
     res.json({ error: true, message: error.message});
   }
@@ -45,7 +42,8 @@ router.get('/:productID', async (req, res) => {
 //Create a product
 router.post('/', UPLOAD_IMAGE_PRODUCT.single('image'), async (req, res) => {
   try {
-    const { title, description, price, categoryID } = req.body;
+    const { title, description, price, categoryID } = JSON.parse(req.body.data);
+    console.log({ title, description, price, categoryID})
     let isExist = await Product.findOne({title});
     if(isExist) res.json({ error: true, message: 'PRODUCT_IS_EXIST'});
 
@@ -70,7 +68,7 @@ router.post('/', UPLOAD_IMAGE_PRODUCT.single('image'), async (req, res) => {
     if(!categories) res.json({ error: true, message: 'CANNOT_GET_CATEGORIES'})
 
     setTimeout(()=> {
-      res.json({ error: false, newProduct: infoProductInserted, newCategory: infoCategoryAfterUpdate, categories});
+      res.json({ error: false, data: infoProductInserted, newCategory: infoCategoryAfterUpdate, categories});
     }, 1500);
   } catch (error) {
     res.json({ error: true, message: error.message});
@@ -84,7 +82,7 @@ router.put('/:productID', UPLOAD_IMAGE_PRODUCT.single('image'), async (req, res)
     let isExist = await Product.findById(productID);
     if(!isExist) res.json({ error: true, message: 'PRODUCT_NOT_EXIST'});
 
-    const {title, description, price, categoryID } = req.body;
+    const {title, description, price, categoryID } = JSON.parse(req.body.data);
     
     if(!Object.is(isExist.category, categoryID)){
       let infoOldCategory = await Category.findByIdAndUpdate(isExist.category, {
@@ -107,7 +105,7 @@ router.put('/:productID', UPLOAD_IMAGE_PRODUCT.single('image'), async (req, res)
     if(!infoCategoryAfterUpdate) res.json({ error: true, message: 'CANNOT_UPDATE_CATEGORY_FOR_PRODUCT'});
     
     setTimeout(()=> {
-      res.json({ error: false, productUpdated: infoProductUpdated, categoryUpdated: infoCategoryAfterUpdate});
+      res.json({ error: false, data: infoProductUpdated, categoryUpdated: infoCategoryAfterUpdate});
     }, 1500);
   } catch (error) {
     res.json({ error: true, message: error.message});
@@ -129,8 +127,8 @@ router.delete('/:productID', async (req, res) => {
     }, { new: true});
 
     //Remove image for user
-    let imagePathRemove = path.resolve(__dirname, `../public/images/products/${infoProductHasDeleted.image}`);
-    let result = await REMOVE_IMAGE(imagePathRemove);
+    // let imagePathRemove = path.resolve(__dirname, `../public/images/products/${infoProductHasDeleted.image}`);
+    // let result = await REMOVE_IMAGE(imagePathRemove);
 
     setTimeout(()=> {
       res.json({ error: false, data: infoProductHasDeleted});
@@ -138,7 +136,7 @@ router.delete('/:productID', async (req, res) => {
   } catch (error) {
     res.json({ error: true, message: error.message});
   }
-})
+});
 
 //Export router
 exports.PRODUCT_ROUTER = router;

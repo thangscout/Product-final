@@ -37,7 +37,9 @@ export const addCategory = (title, description, history) => {
         type: 'ADD_CATEGORY_DONE',
         payload: null
       })
-      history.goBack();
+      // history.goBack();
+      history.push('/dashboard/categories');
+
     })
     .catch(err => {
       STORE.dispatch({
