@@ -24,6 +24,26 @@ router.get('/', async (req, res) => {
   }
 });
 
+//Pagination
+router.get('/:page', async (req, res) => {
+  const resPerpage = 5;
+  const page = req.params.page || 1;
+  try {
+    let products = await Product.find({})
+      .limit(resPerpage)
+      .skip((resPerpage * page) - resPerpage)
+      .sort({ createAt: -1});
+    if(!products) res.json({ error: true, message: 'CANNOT_GET_PRODUCTS'});
+
+    let categories = await Category.find({});
+    if(!categories) res.json({ error: true, message: 'CANNOT_GET_CATEGORIES'})
+    
+    res.json({error: false, data:{products, categories} });
+  } catch (error) {
+    res.json({ error: true, message: error.message});
+  }
+});
+
 //Get info a product
 router.get('/:productID', async (req, res) => {
   try {

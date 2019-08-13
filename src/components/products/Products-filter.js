@@ -12,8 +12,8 @@ class ProductsFilter extends Component {
               name="textKey" 
               // value={textKey}
               // onChange={e => this._handleFilter(e)}
-              placeholder="Nhập Tên Sản Phẩm">
-                </input>
+              placeholder="Enter product name">
+            </input>
           </div>
           <div className="col-md-4">
             <select 
@@ -22,9 +22,9 @@ class ProductsFilter extends Component {
               // onChange={e => this._handleChangeSort(e)}
               // value={sort}
               >
-              <option value="">Bộ Lọc</option>
-              <option value="lowest">Giá tăng dần</option>
-              <option value="highest">Giá giảm dần</option>
+              <option value="">Filter</option>
+              <option value="lowest">Lowest</option>
+              <option value="highest">Highest</option>
             </select>
           </div>
         </div>

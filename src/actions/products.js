@@ -32,7 +32,7 @@ export const addProduct = (title, description, price, categoryID, image, history
   const data = JSON.stringify({ title, description, price, categoryID });
   formData.append('data', data);
 
-  console.log({title, description, price, categoryID, image})
+  // console.log({title, description, price, categoryID, image})
   const config = {
     headers: {
       'content-type': 'multipart/form-data'
@@ -134,7 +134,7 @@ export const getInfoProduct = (productID, history) => {
     })
 }
 
-export const updateInfoProduct = (productID, title, description, price, categoryID, image) => {
+export const updateInfoProduct = (productID, title, description, price, categoryID, image, history) => {
   STORE.dispatch({
     type: 'UPDATE_PRODUCT_REQUESTING',
     payload: null
@@ -156,9 +156,7 @@ export const updateInfoProduct = (productID, title, description, price, category
   axios.put(URI, formData, config)
     .then(resp => {
       const respt = resp.data;
-      console.log({respt, resp})
       const { data: productNew} = respt;
-      console.log({productNew})
       STORE.dispatch({
         type: 'UPDATE_PRODUCT',
         payload: {
@@ -168,7 +166,8 @@ export const updateInfoProduct = (productID, title, description, price, category
       STORE.dispatch({
         type: 'UPDATE_PRODUCT_DONE',
         payload: null
-      })
+      });
+      history.goBack();
     })
     .catch(err => {
       STORE.dispatch({

@@ -22,7 +22,6 @@ class ProductCreate extends Component {
     this.setState({
       [name]: value
     })
-    console.log({e: e.target.value})
   }
 
   _handleChangeFile = e => {
@@ -43,8 +42,8 @@ class ProductCreate extends Component {
   _handleSubmitUpdate = e => {
     e.preventDefault();
     const { title, description, price, categoryID, productID, image } = this.state;
-    console.log({  title, description, price, categoryID, productID, image })
-    updateInfoProduct(productID, title, description, price, categoryID, image);
+    const { history } = this.props;
+    updateInfoProduct(productID, title, description, price, categoryID, image, history);
   }
 
   componentDidUpdate(prevProps, prevState){
@@ -53,7 +52,6 @@ class ProductCreate extends Component {
 
     if(infoProductPrepareUpdate && productID !== infoProductPrepareUpdate._id){
       const { title, description, price, categoryID, image, _id } = infoProductPrepareUpdate;
-      console.log({categoryID, infoProductPrepareUpdate})
       this.setState({
         title, description, price, categoryID, isUpdate: true, productID: _id, nameImage: image
       })
@@ -66,7 +64,7 @@ class ProductCreate extends Component {
 
   render(){
     const { categories:{ listCategories} } = this.props;
-    const { title, description, price, categoryID, isUpdate, nameImage} = this.state;
+    const { title, description, price, isUpdate, nameImage} = this.state;
     const { products: { requestingAddProduct, updatingInfo } } = this.props;
 
     return(
