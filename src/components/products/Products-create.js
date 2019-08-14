@@ -118,7 +118,6 @@ class ProductCreate extends Component {
                     </span>
                   </label>
                   <select className="select form-control"  name="categoryID"
-                    // value={categoryID}
                     onChange={ e => this._handleChangeValue(e)}
                   >
                     {
@@ -147,7 +146,6 @@ class ProductCreate extends Component {
                       src={!isUpdate ? "https://via.placeholder.com/150" :
                           (nameImage && nameImage.length > 0 ? `${URI_FETCH}/images/products/${nameImage}` : "https://via.placeholder.com/150")
                       }
-                      // src="https://via.placeholder.com/150"
                       alt="" width={150}/>
                     </div>
                   </div>

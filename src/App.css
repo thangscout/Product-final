@@ -6,3 +6,7 @@
 .styleATag:hover{
   text-decoration: underline
 }
+
+.page-link:focus {
+  box-shadow: none;
+}
