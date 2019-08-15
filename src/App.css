@@ -10,3 +10,12 @@
 .page-link:focus {
   box-shadow: none;
 }
+
+.card-description{
+  font-size: 1.2rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 3;
+  display: -webkit-box;
+  /* -webkit-box-orient: vertical; */
+}

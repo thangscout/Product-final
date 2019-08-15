@@ -1,7 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
 import { PublicRoute, PrivateRoute } from './helpers';
-import { Home, Dashboard } from './components';
+import { Dashboard } from './components';
+import Home from './components/Home';
 import Login from './components/Login';
 import Register from './components/user/Register';
 import Users from './components/Users';

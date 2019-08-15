@@ -47,8 +47,9 @@ class ProductsFilter extends Component {
               name="sort"
               onChange={e => this._handleChangeSort(e)}
               value={sort}
+              style={{cursor: 'pointer'}}
               >
-              <option value="">Defaut sorting</option>
+              <option value="">Default sorting</option>
               <option value="lowest">Low to Hight</option>
               <option value="highest">Hight to Low</option>
             </select>

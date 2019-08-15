@@ -98,9 +98,9 @@ class Products extends Component {
     const { listProduct } = this.props.products; //STORE
 
     if( listProduct && listProduct !== listProductsPrevState) {
-        this.setState({
-            listProduct
-        })
+      this.setState({
+        listProduct
+      })
     }
 }
 

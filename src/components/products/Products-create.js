@@ -120,6 +120,9 @@ class ProductCreate extends Component {
                   <select className="select form-control"  name="categoryID"
                     onChange={ e => this._handleChangeValue(e)}
                   >
+                    <option value="default" key='default'>
+                      Uncategorized
+                    </option>
                     {
                       listCategories && listCategories.map((category, index) => (
                         <option value={category._id} key={index}>
@@ -134,12 +137,11 @@ class ProductCreate extends Component {
                     Image
                   </label>
                   <div className="row">
-                    <div className="col-md-6">
-                        
-                        <input 
-                            name="image" 
-                            type="file" 
-                            onChange={ e => this._handleChangeFile(e)}/>
+                    <div className="col-md-6">    
+                    <input 
+                        name="image" 
+                        type="file" 
+                        onChange={ e => this._handleChangeFile(e)}/>
                     </div>
                     <div className="col-md-6 d-flex">
                       <img className="ml-auto" 
