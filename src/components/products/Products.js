@@ -62,17 +62,35 @@ class Products extends Component {
 
   _handleFilterProduct = textkey => {
     const { listProduct } = this.state;
-    console.log({ listProduct})
     
     let regexDemo = new RegExp(textkey, 'ig');
     let newListProduct = listProduct.filter(product => {
       return product.title.search(regexDemo) !== -1;
     });
-    console.log({ listProduct, newListProduct });
      this.setState({
       listProduct: newListProduct
     })
-    console.log({ 2: listProduct, 22: newListProduct });
+  }
+
+  _handleChangeSortProduct = sort => {
+    const { listProduct } = this.state;
+    switch(sort){
+      case 'lowest': {
+        let newListProduct = listProduct.sort(( a, b ) => a.price - b.price);
+        return this.setState({
+          listProduct: newListProduct
+        })
+      }
+      case 'highest': {
+        let newListProduct = listProduct.sort(( a, b) => b.price - a.price);
+        return this.setState({
+          listProduct: newListProduct
+        })
+      }
+      default: {
+        return listProduct;
+      }
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -87,10 +105,7 @@ class Products extends Component {
 }
 
   render(){
-    // const { products: { listProduct}} = this.props;
-    // const { listProduct } = this.state;
-    const { startIndex, endIndex, pageLimit, currentPage, totalPages, listProduct} = this.state;
-    console.log({ P: listProduct})
+    const { startIndex, endIndex, pageLimit, currentPage, totalPages, listProduct, sort} = this.state;
     let rowsPerPage = [];
     if(listProduct && listProduct.length > 0){
       rowsPerPage = listProduct.slice(startIndex, endIndex + 1);
@@ -107,6 +122,8 @@ class Products extends Component {
             <div className="col-md-8">
             <ProductsFilter
               _handleFilterProduct={this._handleFilterProduct}
+              sort={sort}
+              _handleChangeSortProduct={this._handleChangeSortProduct}
             />
             </div>
           </div>
