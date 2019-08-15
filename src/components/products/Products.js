@@ -14,7 +14,8 @@ class Products extends Component {
     totalRecords: '',
     totalPages: '',
     pageLimit: 6,
-    currentPage: ''
+    currentPage: '',
+    listProduct: null
   }
 
   componentDidMount = async () => {
@@ -59,10 +60,37 @@ class Products extends Component {
     });
   }
 
-  render(){
-    const { products: { listProduct}} = this.props;
-    const { startIndex, endIndex, pageLimit, currentPage, totalPages} = this.state;
+  _handleFilterProduct = textkey => {
+    const { listProduct } = this.state;
+    console.log({ listProduct})
     
+    let regexDemo = new RegExp(textkey, 'ig');
+    let newListProduct = listProduct.filter(product => {
+      return product.title.search(regexDemo) !== -1;
+    });
+    console.log({ listProduct, newListProduct });
+     this.setState({
+      listProduct: newListProduct
+    })
+    console.log({ 2: listProduct, 22: newListProduct });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { listProduct: listProductsPrevState } = prevState;
+    const { listProduct } = this.props.products; //STORE
+
+    if( listProduct && listProduct !== listProductsPrevState) {
+        this.setState({
+            listProduct
+        })
+    }
+}
+
+  render(){
+    // const { products: { listProduct}} = this.props;
+    // const { listProduct } = this.state;
+    const { startIndex, endIndex, pageLimit, currentPage, totalPages, listProduct} = this.state;
+    console.log({ P: listProduct})
     let rowsPerPage = [];
     if(listProduct && listProduct.length > 0){
       rowsPerPage = listProduct.slice(startIndex, endIndex + 1);

@@ -1,7 +1,23 @@
 import React, { Fragment, Component } from 'react';
 
 class ProductsFilter extends Component {
+  
+  state = {
+    textKey: ''
+  }
+  
+  _handleFilter = e => {
+    const { _handleFilterProduct } = this.props;
+    this.setState({
+      textKey: e.target.value
+    });
+    console.log({ e: e.target.value})
+    _handleFilterProduct(e.target.value)
+  }
   render(){
+
+    const { textKey } = this.state;
+
     return(
       <Fragment>
         <div className="row">
@@ -10,8 +26,8 @@ class ProductsFilter extends Component {
               className="form-control" 
               type="text" 
               name="textKey" 
-              // value={textKey}
-              // onChange={e => this._handleFilter(e)}
+              value={textKey}
+              onChange={e => this._handleFilter(e)}
               placeholder="Enter product name">
             </input>
           </div>

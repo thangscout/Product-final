@@ -112,7 +112,9 @@ export const getInfoProduct = (productID, history) => {
   axios.get(URI)
     .then( resp => {
       const respt = resp.data;
+      console.log({q: respt, w: respt.data})
       const { data: product } = respt;
+      console.log({ e: product})
       STORE.dispatch({
         type: 'GET_INFO_PRODUCT',
         payload: {

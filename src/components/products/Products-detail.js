@@ -1,6 +1,7 @@
 import React, { Fragment, Component } from 'react';
 import { URI_FETCH} from '../../constant/index';
 import { Link } from 'react-router-dom';
+import { formatCurrency } from '../../helpers'
 
 class ProductDetail extends Component {
   constructor(props){
@@ -11,7 +12,6 @@ class ProductDetail extends Component {
   _handleRemove = e => {
     e.preventDefault();
     const { product: { _id: productID}, _handlecRemoveProduct} = this.props;
-    console.log({ productID})
     _handlecRemoveProduct(productID);
   }
 
@@ -30,7 +30,7 @@ class ProductDetail extends Component {
           <th scope="row">{index + 1}</th>    
           <td>{product.title && product.title}</td>
           <td>{product.description && product.description}</td>
-          <td>{product.price && product.price}</td>
+          <td>{product.price && formatCurrency(product.price)}</td>
           <td>{category && category.title}</td>
           <td>
             <img src={product.image ? `${URI_FETCH}/images/products/${product.image}` : 'https://via.placeholder.com/100' } 
