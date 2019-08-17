@@ -28,7 +28,6 @@ export const addCategory = (title, description, history) => {
   axios.post(`${URI_FETCH}/categories`, { title, description})
     .then(resp => {
       let respt = resp.data;
-      // console.log({ respt})
       STORE.dispatch({
         type: 'ADD_CATEGORY',
         payload: respt.data

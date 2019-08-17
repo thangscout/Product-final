@@ -43,7 +43,7 @@ app.post('/login', async (req, res) => {
     let signalSignToken = await signPromise({ email });
 
     setTimeout(()=> {
-      res.json({ error: false, data: { email, token: signalSignToken.token}})
+      res.json({ error: false, data: { email, infoUser, token: signalSignToken.token}})
     }, 1500);
 
   } catch (error) {
@@ -56,9 +56,10 @@ app.get('/refresh-token/:token', async (req, res) => {
     const { token } = req.params;
     let ojbDecode = await verifyPromise(token);
     let {data: { email }} = ojbDecode;
-    
+  
+    let infoUser = await User.findOne({email});
     let signalSignToken = await signPromise({ email });
-    res.json({ error: false, data: { email, token: signalSignToken.token }})
+    res.json({ error: false, data: { email, infoUser, token: signalSignToken.token }})
   } catch (error) {
     res.json({ error: true, message: error.message});
   }

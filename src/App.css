@@ -19,3 +19,64 @@
   display: -webkit-box;
   /* -webkit-box-orient: vertical; */
 }
+/*
+  Navbar menu
+*/
+.navbar {
+  padding: 0 1rem;
+}
+.user-menu {
+  padding: .5rem 0;
+}
+.user-menu img {
+  cursor: pointer;
+}
+
+.user-menu .list-group-item {
+  cursor: pointer;
+  color: #212121;
+}
+.user-menu .list-group-item:hover {
+  background: #d6dade;
+}
+.user-menu .list-group-item a {
+  text-decoration: none;
+  color: #212121;
+}
+
+.user-menu .list-group-item i {
+  margin-right: 1rem;
+}
+
+.user-menu:hover .card {
+  visibility: visible;
+}
+.user-menu .card {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  visibility: hidden;
+  transition: .2s ease-out;
+  z-index: 1;
+}
+
+.card-user {
+  display: flex;
+  flex-direction: row;
+  padding: 1rem 0.5rem 1.3rem;
+  border-bottom: 1px solid rgba(0,0,0,.125);
+}
+
+.card-user-img {
+  margin-right: .8rem;
+}
+
+.card-user-info-title {
+  color: #000;
+  font-weight: 500;
+  margin-bottom: 0;
+}
+
+.card-user-info-email {
+  margin-bottom: 0;
+}

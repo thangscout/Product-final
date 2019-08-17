@@ -1,18 +1,18 @@
 const initState = {
-  listUser: [],
-  email: '',
+  user: undefined,
   token: '',
   submittingLogin: false,
   messageError: null,
-  requestingRegister: false
+  requestingRegister: false,
+  isUser: undefined,
 }
 
 export default function userReducer( state = initState, action){
   switch(action.type){
     case 'LOGIN_SUCCESSED':
       return {
-        email: action.payload.email,
-        token: action.payload.token
+        token: action.payload.token,
+        isUser: action.payload.isUser
       }
     case 'LOGIN_REQUEST':
       return {
@@ -27,16 +27,10 @@ export default function userReducer( state = initState, action){
       }
     case 'CLEAR_TOKEN':
       return {}
-    
-    case 'GET_USERS': 
-      return {
-        ...state,
-        listUser: action.payload.users
-      };
     case 'REGISTER':
       return {
         ...state,
-        listUser: [...state.listUser, action.payload]
+        user: action.payload
       }
     case 'REGISTER_REQUESTING':{
         return {
@@ -47,7 +41,7 @@ export default function userReducer( state = initState, action){
     case 'REGISTER_ERROR':
       return {
         ...state,
-        submittingLogin: false,
+        requestingRegister: false,
         messageError: action.payload.message
       }
     case 'REGISTER_DONE':{
@@ -56,6 +50,23 @@ export default function userReducer( state = initState, action){
         requestingRegister: false
       }
     }
+    case 'UPDATE_USER':
+    {
+      return {
+        ...state,
+        isUser: action.payload.user
+      }
+    }
+    case 'UPDATE_USER_REQUESTING':
+      return {
+        ...state,
+        updatingInfo: true
+      }
+    case 'UPDATE_USER_DONE':
+      return {
+        ...state,
+        updatingInfo: false
+      }
     default:
       return state;
   }

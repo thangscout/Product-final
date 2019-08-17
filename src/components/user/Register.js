@@ -13,6 +13,9 @@ class Register extends Component {
 
   _handleChangeValue = e => {
     const { name, value } = e.target;
+    if(value < 1){
+      return;
+    }
     this.setState({
       [name]: value
     })
@@ -33,17 +36,20 @@ class Register extends Component {
   }
 
   render(){
-    // const { fullname, email, password, age, image } = this.state;
-    // console.log({ fullname, email, password, age, image })
+    const { fullname, email, password, age } = this.state;
     let { users: {requestingRegister, messageError} } = this.props;
-    // let { listUser } = this.props;
-    // console.log({listUser})
     return(
       <Fragment>
         <div className="container">
           <div className="row">
             <div className="col-md-6 col-sm-6 col-xs-12">
             <h2 className="mt-5 mb-4">Register</h2>
+              {
+                messageError && <p className="alert alert-danger pt-2 pb-2" role="alert">
+                  {Object.is(messageError, 'FULLNAME_EMAIL_IS_REQUIRED') && 'Please enter Fullname and Email'}
+                  {Object.is(messageError, 'EMAIL_IS_EXIST') && 'Email is existence'}
+                </p>
+              }
               <form method="post">
                 <div className="form-group ">
                   <label className="control-label requiredField" htmlFor="fullname">
@@ -55,7 +61,7 @@ class Register extends Component {
                   <input  className="form-control" 
                           name="fullname" 
                           type="text"
-                          // value={fullname}
+                          value={fullname}
                           onChange={e => this._handleChangeValue(e)} />
                 </div>
                 <div className="form-group ">
@@ -68,7 +74,7 @@ class Register extends Component {
                   <input  className="form-control" 
                           name="email" 
                           type="text"
-                          // value={email}
+                          value={email}
                           onChange={e => this._handleChangeValue(e)}  />
                 </div>
                 <div className="form-group ">
@@ -81,7 +87,7 @@ class Register extends Component {
                   <input  className="form-control" 
                           name="password" 
                           type="text"
-                          // value={password}
+                          value={password}
                           onChange={e => this._handleChangeValue(e)}  />
                 </div>
                 <div className="form-group ">
@@ -91,7 +97,7 @@ class Register extends Component {
                   <input  className="form-control" 
                           name="age" 
                           type="number"
-                          // value={age}
+                          value={age}
                           onChange={e => this._handleChangeValue(e)}  />
                 </div>
                 <div className="form-group ">
@@ -116,7 +122,6 @@ class Register extends Component {
                       Register
                       {requestingRegister ? <span className="spinner-border spinner-border-sm ml-2" role="status" aria-hidden="true"></span> : ''}
                     </button>
-                    <p>{messageError}</p>
                   </div>
                 </div>
               </form>

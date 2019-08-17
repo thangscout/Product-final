@@ -42,7 +42,6 @@ export const addProduct = (title, description, price, categoryID, image, history
   axios.post(URI, formData, config)
     .then(resp => {
       let respt = resp.data;
-      console.log({ resp})
       STORE.dispatch({
         type: 'ADD_PRODUCT',
         payload: respt.data
@@ -51,7 +50,6 @@ export const addProduct = (title, description, price, categoryID, image, history
         type: 'ADD_PRODUCT_DONE',
         payload: null
       });
-      // history.goBack();
       history.push('/dashboard/products');
     })
     .catch(err => {
@@ -112,9 +110,7 @@ export const getInfoProduct = (productID, history) => {
   axios.get(URI)
     .then( resp => {
       const respt = resp.data;
-      console.log({q: respt, w: respt.data})
       const { data: product } = respt;
-      console.log({ e: product})
       STORE.dispatch({
         type: 'GET_INFO_PRODUCT',
         payload: {

@@ -15,13 +15,20 @@ class Carts extends Component {
             <h6>List Cart</h6> 
             <ul className="list-group">
               { 
-                carts && carts.length > 0 && carts.map((item, index) => (
+                carts.length > 0 ? carts.map((item, index) => (
                   <CartItem item={item} key={index}/>
-                ))
+                )) :
+                <li className="list-group-item">
+                  No products in the Cart.
+                </li>
               }
               <li className="list-group-item d-flex">
-                <span>Total Price: {totalPrice ? formatCurrency(totalPrice) : formatCurrency(totalPrice)}</span>
-                <span className="d-inline ml-auto">Total Amount: {totalAmount ? `${totalAmount} items` : `${totalAmount} item`}</span>
+                <span>
+                  <b>Total Price:</b> {totalPrice ? formatCurrency(totalPrice) : formatCurrency(totalPrice)}
+                </span>
+                <span className="d-inline ml-auto">
+                  <b>Total Amount:</b> {totalAmount ? `${totalAmount} items` : `${totalAmount} item`}
+                </span>
               </li>
             </ul>
           </div>
