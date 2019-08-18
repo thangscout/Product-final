@@ -6,6 +6,7 @@ import ProductItem from './Product-item';
 import CategoryItem from './Category-item';
 import { Link } from 'react-router-dom';
 import Pagination from '../components/Pagination';
+import SortItem from '../components/Sort-item';
 import FilterItem from '../components/Filter-item';
 
 class Home extends Component {
@@ -68,6 +69,19 @@ class Home extends Component {
     }
   }
 
+  _handleFilterProduct = textkey => {
+    const { listProduct } = this.state;
+    console.log({ textkey});
+    
+    let regexDemo = new RegExp(textkey, 'ig');
+    let newListProduct = listProduct.filter(product => {
+      return product.title.search(regexDemo) !== -1;
+    });
+     this.setState({
+      listProduct: newListProduct
+    })
+  }
+
   componentDidUpdate(prevProps, prevState) {
     const { listProduct: listProductsPrevState } = prevState;
     const { listProduct } = this.props.products; //STORE
@@ -90,11 +104,12 @@ class Home extends Component {
     console.log({listCategories})
     return(
       <Fragment>
-        <div className="container-fluid mt-5 mb-5">
+        <div className="container-fluid mt-4 mb-5">
           <div className="row">
             <div className="col-md-2">
              <div className="sibar-categories">
-                <h3 className="categories-title"><Link to="/dashboard/categories">Categories</Link></h3>
+               <FilterItem _handleFilterProduct={this._handleFilterProduct}/>
+                <h3 className="categories-title mt-3"><Link to="/dashboard/categories">Categories</Link></h3>
                 <ul className="list-group">
                   {
                     listCategories.length > 0 && listCategories.map((item, index)=> (
@@ -106,7 +121,7 @@ class Home extends Component {
             </div>
             <div className="col-md-10">
               <div className="row">
-                <FilterItem
+                <SortItem
                   sort={sort}
                   _handleChangeSortProduct={this._handleChangeSortProduct}
                 />

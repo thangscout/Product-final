@@ -1,39 +1,29 @@
 import React, { Fragment, Component } from 'react';
 
 class FilterItem extends Component {
-  
   state = {
-    sort: ''
+    textKey: ''
   }
-
-  _handleChangeSort = e => {
-    const { _handleChangeSortProduct } = this.props;
+  
+  _handleFilter = e => {
+    const { _handleFilterProduct } = this.props;
     this.setState({
-      sort: e.target.value
+      textKey: e.target.value
     });
-
-    _handleChangeSortProduct(e.target.value)
+    _handleFilterProduct(e.target.value)
   }
-
   render(){
-
-    const { sort } = this.state;
-
+    const { textKey } = this.state;
     return(
       <Fragment>
-          <div className="col-md-4 ml-auto mb-4">
-            <select 
-              className="form-control" 
-              name="sort"
-              onChange={e => this._handleChangeSort(e)}
-              value={sort}
-              style={{cursor: 'pointer'}}
-              >
-              <option value="">Default sorting</option>
-              <option value="lowest">Low to Hight</option>
-              <option value="highest">Hight to Low</option>
-            </select>
-        </div>
+        <input 
+          className="form-control" 
+          type="text" 
+          name="textKey" 
+          value={textKey}
+          onChange={e => this._handleFilter(e)}
+          placeholder="Enter product name">
+        </input>
       </Fragment>
     );
   }
