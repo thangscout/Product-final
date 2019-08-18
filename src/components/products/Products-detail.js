@@ -29,7 +29,7 @@ class ProductDetail extends Component {
         <tr key={index}>
           <th scope="row">{index + 1}</th>    
           <td>{product.title && product.title}</td>
-          <td>{product.description && product.description}</td>
+          <td style={{maxWidth: '600px'}}>{product.description && product.description}</td>
           <td>{product.price && formatCurrency(product.price)}</td>
           <td>{category && category.title}</td>
           <td>

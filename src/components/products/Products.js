@@ -102,7 +102,7 @@ class Products extends Component {
         listProduct
       })
     }
-}
+  }
 
   render(){
     const { startIndex, endIndex, pageLimit, currentPage, totalPages, listProduct, sort} = this.state;

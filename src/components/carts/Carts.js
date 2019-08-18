@@ -10,28 +10,27 @@ class Carts extends Component {
     console.log({ carts, totalPrice})
     return(
       <Fragment>
-        <div className="row mb-5">
-          <div className="col-12 col-md-6">
-            <h6>List Cart</h6> 
-            <ul className="list-group">
-              { 
-                carts.length > 0 ? carts.map((item, index) => (
-                  <CartItem item={item} key={index}/>
-                )) :
-                <li className="list-group-item">
-                  No products in the Cart.
-                </li>
-              }
-              <li className="list-group-item d-flex">
-                <span>
-                  <b>Total Price:</b> {totalPrice ? formatCurrency(totalPrice) : formatCurrency(totalPrice)}
-                </span>
-                <span className="d-inline ml-auto">
-                  <b>Total Amount:</b> {totalAmount ? `${totalAmount} items` : `${totalAmount} item`}
-                </span>
+        <div className="cart-menu">
+          <i className="fa fa-opencart"></i> 
+          <span>{carts.length}</span>
+          <ul className="list-group">
+            { 
+              carts.length > 0 ? carts.map((item, index) => (
+                <CartItem item={item} key={index}/>
+              )) :
+              <li className="list-group-item">
+                No products in the Cart.
               </li>
-            </ul>
-          </div>
+            }
+            <li className="list-group-item d-flex">
+              <span>
+                <b>Total Price:</b> {totalPrice ? formatCurrency(totalPrice) : formatCurrency(totalPrice)}
+              </span>
+              <span className="d-inline ml-auto">
+                <b>Total Amount:</b> {totalAmount ? `${totalAmount} items` : `${totalAmount} item`}
+              </span>
+            </li>
+          </ul>
         </div>
       </Fragment>
     );

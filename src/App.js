@@ -12,6 +12,7 @@ import CategoriesCreate from './components/categories/Categories-create';
 import ProductsCreate from './components/products/Products-create';
 import { connect } from 'react-redux';
 import UserMenu from './components/user/User-menu';
+import Carts from './components/carts/Carts';
 
 class App extends Component {
 
@@ -31,11 +32,13 @@ class App extends Component {
               <li className="nav-item">
                 <Link className="nav-link" to="/dashboard">Dashboard</Link>
               </li>
-              <li className="nav-item ml-auto " style={{padding:'.5rem 0'}}>
+              <li className="nav-item ml-auto d-flex align-items-center" >
                 {
-                  users.isUser ?
-                  <UserMenu isUser={users.isUser}/>
-                  : <Link className="btn btn-outline-success" to="/login" >Login</Link>
+                  users.isUser ? <Carts/> : ''
+                }
+                {
+                  users.isUser ? <UserMenu isUser={users.isUser}/> :
+                  <Link className="btn btn-outline-success" to="/login" style={{margin: '.5rem 0'}}>Login</Link>
                 }
               </li>
             </ul>

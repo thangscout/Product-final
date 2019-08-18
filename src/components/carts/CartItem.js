@@ -17,19 +17,19 @@ class CartItem extends Component {
     return(
       <Fragment>
         <li className="list-group-item d-flex">
-          <img className="rounded mr-4" 
+          <img className="rounded mr-2" 
           src={
             item.product.image ? `${URI_FETCH}/images/products/${item.product.image}` :
             'https://via.placeholder.com/100'
           }
           alt="" width={100}/>
-          <p className="d-inline">{item.product && item.product.title} </p>
-          <span className="ml-1">{ item.product.price && formatCurrency(item.product.price)}</span>
+          <p className="d-inline font-weight-bold">{item.product && item.product.title} </p>
+          <span className="ml-1"> | { item.product.price && formatCurrency(item.product.price)}</span>
           <strong  className="ml-1">x {item.quantity}</strong>
-          <button className="btn btn-danger ml-auto align-self-start"
+          <button className="btn btn-danger ml-auto align-self-start rounded-circle" style={{padding: ".3rem .75rem"}}
             onClick={e => this._handleRemoveItem(e)}
           >
-            Remove
+            x
           </button>
         </li>
       </Fragment>

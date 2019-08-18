@@ -33,7 +33,7 @@ class ProductItem extends Component {
     // let category = listCategories.find(category => Object.is(category._id, product.categoryID));
     return(
       <Fragment>
-        <div className="card mb-5" style={{width: '16rem'}}>
+        <div className="card mb-5" style={{width: '16rem', margin: '0 12px'}}>
         <img src={product.image ? `${URI_FETCH}/images/products/${product.image}` : 'https://via.placeholder.com/100' } 
           alt=""
           className="card-img-top"

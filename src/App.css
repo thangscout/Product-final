@@ -80,3 +80,72 @@
 .card-user-info-email {
   margin-bottom: 0;
 }
+
+/*  Cart menu
+*/
+.cart-menu {
+  margin-right: 1.5rem;
+  cursor: pointer;
+  position: relative;
+  padding: 1rem 0;
+}
+
+.cart-menu  i {
+  font-size: 1.5rem;
+}
+
+.cart-menu > span {
+  display: inline-block;
+  background-color: #33995f;
+  padding: .1rem .45rem;
+  border-radius: 50%;
+  font-size: .8rem;
+  position: absolute;
+  top: 12px;
+  color: white;
+  left: 20px;
+}
+.cart-menu .list-group {
+  visibility: hidden;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 25rem;
+  z-index: 1;
+  max-height: 400px;
+  overflow-y: auto;
+}
+.cart-menu:hover .list-group {
+  visibility: visible;
+}
+
+/**
+  Sidebar category
+*/
+.sibar-categories .categories-title {
+  position: relative;
+}
+
+.sibar-categories .categories-title a {
+  color: #212529;
+}
+.sibar-categories .categories-title a:hover {
+  text-decoration: none;
+}
+.sibar-categories .categories-title::after {
+  content: '';
+  width: 100%;
+  display: block;
+  position: absolute;
+  height: 3px;
+  bottom: -10px;
+  background: linear-gradient(90deg, rgba(51,153,76,1) 0%, rgba(255,255,255,1) 100%);
+}
+.sibar-categories .list-group-item {
+  border: none;
+  background-color: transparent;
+  border-bottom: 1px solid rgba(0,0,0,.125);
+}
+.sibar-categories .list-group-item:last-child{
+  border-bottom: none;
+}
