@@ -7,7 +7,8 @@ const { compare } = require('bcrypt');
 
 require('dotenv').config();
 const port = process.env.PORT || 5000;
-const uri = 'mongodb://localhost/project_0106';
+// const uri = 'mongodb://localhost/project_0106';
+const uri = 'mongodb+srv://thangle:Thang1102@project-tk4lr.mongodb.net/test?retryWrites=true&w=majority';
 
 const User = require('./models/user');
 const { signPromise, verifyPromise } = require('./utils/jwt')
@@ -26,9 +27,6 @@ app.use('/users', USER_ROUTER);
 app.use('/categories', CATEGORIES_ROUTER);
 app.use('/products', PRODUCT_ROUTER);
 
-app.get('/', (req, res)=>{
-  res.send('c');
-});
 
 //Login
 app.post('/login', async (req, res) => {

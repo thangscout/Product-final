@@ -22,7 +22,7 @@ class Carts extends Component {
                 No products in the Cart.
               </li>
             }
-            <li className="list-group-item d-flex">
+            <li className="list-group-item d-flex active">
               <span>
                 <b>Total Price:</b> {totalPrice ? formatCurrency(totalPrice) : formatCurrency(totalPrice)}
               </span>

@@ -71,7 +71,7 @@ class Home extends Component {
 
   _handleFilterProduct = textkey => {
     const { listProduct } = this.state;
-    console.log({ textkey});
+    // console.log({ textkey});
     
     let regexDemo = new RegExp(textkey, 'ig');
     let newListProduct = listProduct.filter(product => {
@@ -96,12 +96,12 @@ class Home extends Component {
   render(){
     // let { products:{ listProduct }, categories: {listCategories}} = this.props;
     let { categories: {listCategories}} = this.props;
-    const { startIndex, endIndex, pageLimit, currentPage, totalPages, listProduct, sort} = this.state;
+    const { startIndex, endIndex, pageLimit, listProduct, sort} = this.state;
     let rowsPerPage = [];
     if(listProduct && listProduct.length > 0){
       rowsPerPage = listProduct.slice(startIndex, endIndex + 1);
     }
-    console.log({listCategories})
+    // console.log({listCategories})
     return(
       <Fragment>
         <div className="container-fluid mt-4 mb-5">
